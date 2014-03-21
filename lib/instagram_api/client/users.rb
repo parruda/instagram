@@ -56,10 +56,10 @@ module Instagram
     #
     #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
     # @rate_limited true
-    def user_followed_by(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
-      id = args.first || "self"
-      response = get("users/#{id}/followed-by", options)
+    def user_followed_by(uid)
+      #options = args.last.is_a?(Hash) ? args.pop : {}
+      #id = args.first || "self"
+      response = get("users/#{uid}/followed-by", options)
       response
     end
 
