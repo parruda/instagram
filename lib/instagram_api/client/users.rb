@@ -5,6 +5,63 @@ module Instagram
     #
     # @see http://instagram.com/developer/endpoints/users/
     module Users
+    
+    # Returns a list of users whom a given user follows
+      #
+      # @overload user_follows(id=nil, options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Hashie::Mash]
+      #   @example Returns a list of users the authenticated user follows
+      #     Instagram.user_follows
+      # @overload user_follows(id=nil, options={})
+      #   @param user [Integer] An Instagram user ID.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (nil) Breaks the results into pages. Provide values as returned in the response objects's next_cursor attribute to page forward in the list.
+      #   @option options [Integer] :count (nil) Limits the number of results returned per page.
+      #   @return [Hashie::Mash]
+      #   @example Return a list of users @mikeyk follows
+      #     Instagram.user_follows(4) # @mikeyk user ID being 4
+      # @see TODO:docs url
+      # @format :json
+      # @authenticated false unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
+      # @rate_limited true
+      def user_follows(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        id = args.first || "self"
+        response = get("users/#{id}/follows", options)
+        response
+      end
+    end
+
+    # Returns a list of users whom a given user is followed by
+    #
+    # @overload user_followed_by(id=nil, options={})
+    #   @param options [Hash] A customizable set of options.
+    #   @return [Hashie::Mash]
+    #   @example Returns a list of users the authenticated user is followed by
+    #     Instagram.user_followed_by
+    # @overload user_followed_by(id=nil, options={})
+    #   @param user [Integer] An Instagram user ID.
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [Integer] :cursor (nil) Breaks the results into pages. Provide values as returned in the response objects's next_cursor attribute to page forward in the list.
+    #   @option options [Integer] :count (nil) Limits the number of results returned per page.
+    #   @return [Hashie::Mash]
+    #   @example Return a list of users @mikeyk is followed by
+    #     Instagram.user_followed_by(4) # @mikeyk user ID being 4
+    # @see TODO:docs url
+    # @format :json
+    # @authenticated false unless requesting it from a protected user
+    #
+    #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
+    # @rate_limited true
+    def user_followed_by(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      id = args.first || "self"
+      response = get("users/#{id}/followed-by", options)
+      response
+    end
 
       # Retrieve a single user's information.
       #
