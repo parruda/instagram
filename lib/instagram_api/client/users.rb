@@ -33,7 +33,7 @@ module Instagram
         response = get("users/#{id}/follows", options)
         response
       end
-    end
+    
 
     # Returns a list of users whom a given user is followed by
     #
